@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/style.css" >
+    </head>
+    <body>
+        <div class="container pt-5">
+            <h1>Resemblance</h1>
+            <h2>measure similarity between two documents</h2>
+           
+            <form method="POST" id="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                <label for="text">Description about comparing</label>
+                <input type="text" class="form-control" name="description" placeholder="description">
+                </div>
+                <p class="file">
+                        <input type="file" name="document"/> <span class="selected-1"></span>
+                        <label for="file">Upload main file</label>
+                        
+                </p>
+                <p class="file">
+                        <input type="file" name="document2"/> <span class="selected-2"></span>
+                        <label for="file">Upload query file</label>
+                </p>
+                
+                <button type="submit" class="btn blue">Upload</button>
+            </form>
+            <div class="row mb-2 posts">
+                    {% for document in documents %}
+                    <div class="col-md-6">
+                        <div class="cards">
+                            <a href="{% url 'detail' document.id %}" style=" text-decoration: none;">
+                                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                    <div class="col p-4 d-flex flex-column position-static">
+                                        <h3 class="mb-0">{{document.id}}</h3>
+                                        <p class="mb-auto">{{document.description}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+
+
+<p class="txtcenter copy">by <a href="https://twitter.com/coderasha">@coderasha</a><br />see also <a href="https://reversepython.net">Reverse Python</a></p>
+        </div>
+
+    </body>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>	
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('input[name="document"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                $('.selected-1').prepend('Selected:' + ' ' + fileName)
+            });
+
+            $('input[name="document2"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                $('.selected-2').prepend('Selected:' + ' ' + fileName)
+            });
+        });
+    </script>
+</html>
