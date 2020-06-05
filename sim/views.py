@@ -55,7 +55,10 @@ def similarity(request, id):
         avg = sum_of_sims / len(file_docs)
         print(f'avg: {sum_of_sims / len(file_docs)}')
         avg_sims.append(avg)  
-    total_avg = np.sum(avg_sims, dtype=np.float)
+    #total_avg = np.sum(avg_sims, dtype=np.float)
+    #Don't we need to divide the total_avg by the number of averages in the array?
+    total_avg = np.sum(avg_sims, dtype=np.float) / len(avg_sims)
+    
     print(total_avg)
     percentage_of_similarity = round(float(total_avg) * 100)
     if percentage_of_similarity >= 100:
